@@ -1,0 +1,11 @@
+{% ckan_extends %}
+
+{% block content_primary_nav %}
+    {{ h.build_nav_icon('dataset_edit', _('Edit metadata'), id=pkg.name) }}
+    {{ h.build_nav_icon('dataset_resources', _('Resources'), id=pkg.name) }}
+    {% if pkg.dqs_uuid %}
+        {{ h.build_nav_icon('update_dataset_dqs', _('Update DQS'), dqs_uuid=pkg.dqs_uuid, qualified=True) }}
+    {% else %}
+        {{ h.build_nav_icon('allow_dataset_dqs', _('Allow DQS'), id=pkg.name) }}
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'package/dq_pdf.html' %}
+
+{% block dq_header_table %}
+	<table class="dq-base-info">
+	    <tr>
+		<td class="dq-base-title">Name of dataset or data source:</td>
+		<td>{{ package.title }}</td>
+	    </tr>
+	    <tr>
+		<td class="dq-base-title">Custodian of the dataset or data source:</td>
+		{% if package.asset_details and package.asset_details.custodian.position == 'External custodian' %}
+		    <td>{{ h.get_org_full(package.owner_org).display_name }}</td>
+		{% else %}
+		    <td>{{ package.asset_details and package.asset_details.custodian.position or 'N/A' }}</td>
+		{% endif %}
+	    </tr>
+	    <tr>
+		<td class="dq-base-title">Description:</td>
+		<td>{{ package.notes }}</td>
+	    </tr>
+	    <tr>
+		<td class="dq-base-title">Data quality rating:</td>
+		<td>
+		    <ul class="dq-base-qualities">
+			{% for title, questions in questionnaire %}
+			    {% with score = [] %}
+				{%- for q in questions -%}
+				    {% if h.ksa_bit_check(package.bit_dqs, q.id) %}
+					{% do score.append(1) %}
+				    {% endif %}
+				{% endfor %}
+				<li class="{{'cool' if score|sum > 3 else 'not_cool'}}">{{ title }} - {{ score|sum }}</li>
+			    {% endwith %}
+
+			{% endfor %}
+		    </ul>
+		</td>
+	    </tr>
+	</table>
+{% endblock %}
+
+{% block dq_info_table %}
+    {% for title, questions in questionnaire %}
+	<table class="dq-section-info">
+	    <tr class="dq-section-title">
+		<th>{{ title }}</th>
+		<th>
+		    {% with score = [] %}
+			{%- for q in questions -%}
+			    {% if h.ksa_bit_check(package.bit_dqs, q.id) %}
+				{% do score.append(1) %}
+			    {% endif %}
+			{% endfor %}
+
+			{{ marks[score|sum] }}
+			<div class="dq-section-info-star {{'cool' if score|sum > 3 else 'not_cool'}}"></div>
+		    {% endwith %}
+		</th>
+	    </tr>
+	    <tr class="positive-criteria">
+		<td colspan="3">
+		    {%- for q in questions -%}
+			{% if h.ksa_bit_check(package.bit_dqs, q.id) %}
+			    <div class="section-q-item">{{ h.render_markdown(q.question) }}</div>
+			{% endif %}
+		    {%- endfor -%}
+		</td>
+	    </tr>
+	    <tr class="negative-criteria">
+		<td colspan="3">
+		    {%- for q in questions -%}
+			{% if not h.ksa_bit_check(package.bit_dqs, q.id) %}
+			    <div class="section-q-item">{{ h.render_markdown(q.question) }}</div>
+			{% endif %}
+		    {%- endfor -%}
+		</td>
+	    </tr>
+	</table>
+    {% endfor %}
+
+{% endblock dq_info_table %}

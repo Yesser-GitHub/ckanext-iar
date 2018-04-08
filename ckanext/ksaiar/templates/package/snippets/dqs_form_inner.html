@@ -1,0 +1,48 @@
+{% import 'macros/form.html' as form %}
+
+<div data-module="dqs-form">
+    <p>
+		This tool is designed to support the NSW Government Standard for Data Quality Reporting. It will guide you through the reporting questionnaire and generate a standard data quality statement.
+	</p>
+	<p>
+		The statement helps a user understand how a particular dataset could be used and whether it can be compared with other, similar datasets. It provides a description of the characteristics of the data to help the user decide whether the data will be fit for their specific purpose.
+	</p>
+    {% for group, questions in questionnaire %}
+		<div class="quality-block" data-module="anzlic-quality-block" data-module-bar="1">
+			<h3>
+				{{ _(group) }} <span class="group-rating"></span>
+			</h3>
+			{% for q in questions %}
+			<div class="dqs-question">
+				{% with checked = h.ksa_bit_check(pkg_dict.bit_dqs, q.id) %}
+					<input type="checkbox" class="dqs-tick" id="id-q-{{ q.id }}" name="q-{{ q.id }}" {% if checked %}checked{% endif %}>
+					<label class="pull-left dqs-tick-label" for="id-q-{{ q.id }}"></label>
+				{% endwith %}
+				{{ h.render_markdown(q.question, allow_html=True) }}
+			</div>
+			{% endfor %}
+		</div>
+    {% endfor %}
+    <div class="quality-results">
+		<h3>
+			Overall data quality score:
+			<span id="dqs-score"></span>/25 <span id="result-status"></span>
+		</h3>
+		<div class="container-fluid">
+			{% for group, _ in questionnaire %}
+			<div class="row">
+				<h4 class="span4">{{ group }}</h4>
+				<div class="span6">
+					<div class="dqs-bar" data-progress="0"></div>
+				</div>
+				<div class="dqs-rating"></div>
+			</div>
+			{% endfor %}
+			<div class="quality-result-legend">
+				{% for mark in range(0, 6) %}
+					<div class="legend-mark">{{ mark }}</div>
+				{% endfor %}
+			</div>
+		</div>
+    </div>
+</div>

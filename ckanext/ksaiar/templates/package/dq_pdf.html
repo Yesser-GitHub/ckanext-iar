@@ -1,0 +1,280 @@
+{% set sections = [
+    ('ie', 'Institutional Environment'),
+    ('ac', 'Accuracy'),
+    ('co', 'Coherence'),
+    ('it', 'Interpretability'),
+    ('as', 'Accessibility')
+] %}
+{% set questions = {} %}
+{% set ie = [
+
+    'Does the information have the potential to enhance services or service delivery?',
+
+    'The data aligns with the Data Quality Framework, including:
+  <ul>
+    <li>Legislation</li>
+    <li>Policies</li>
+    <li>Information Asset Governance</li>
+    <li>Standards</li>
+    <li>Data Management Plans</li>
+  </ul>',
+
+    'The following governance roles and responsibilities for this asset are clearly assigned:
+  <ul>
+    <li>Information Asset Owner</li>
+    <li>Information Asset Custodian</li>
+    <li>Information Steward</li>
+  </ul>',
+
+    'Data collection is authorised by law, regulation or agreement',
+
+    'The Custodial agency has no commercial interest or conflict of interest in the data'
+] %}
+{% set ac = [
+    'Data has been subject to a data assurance process',
+
+    'Data is revised and the revision is published if errors are identified',
+
+    'There are no known gaps in the data or if there are gaps, they have been identified in caveats attached to the dataset.',
+
+    'No changes have been made or other factors identified (for example: weighting, rounding, de-identification of data, changes or flaws in data collection or verification methods) that could affect the validity of the data; or any changes/factors have been identified in caveats attached to the asset.',
+
+    'The data collection met the objectives of the primary user. The data correctly represents what it was designed to measure, monitor or report.',
+
+    'Find out more about the quality assurance processes from the NSW Government Standard for Data Quality Reporting. https://www.finance.nsw.gov.au/ict/resources/data-quality-standard'
+] %}
+{% set co = [
+    'Standard definitions, common concepts, classifications and data recording practices been used.',
+
+    'Elements within the data can be meaningfully compared.',
+
+    'This data is generally consistent with similar or related data sources from the same discipline',
+
+    'The data can be analysed over time (for example, there have not been any significant changes in the way items are defined, classified or counted over time).',
+
+    'The data does not form part of a collection or, if it is the latest in a series of data releases, there have not been any changes in methodology or external impacts since the last data release.'
+] %}
+{% set it = [
+    'A data dictionary is available to explain the meaning of data elements, their origin, format and relationships',
+
+    'Information is available about the primary data sources and methods of data collection (e.g. instruments, forms, instructions).',
+
+    'Information is available to help users evaluate the accuracy of the data and any level of error',
+
+    'Information is available to explain concepts, help users correctly interpret the data and understand how it can be used',
+
+    'Information is available to explain ambiguous or technical terms used in the data',
+
+
+
+    'Find out more about the data dictionary from the Custodian (contact details below).',
+
+    'Find out more about the primary data sources and methods of data collection from the Custodian (contact details below).',
+
+    'Find out more about concepts used in this dataset and how to understand or interpret the data from the Custodian (contact details below).',
+
+    'Find out more about ambiguous or technical terms used in the data from the Custodian (contact details below).'
+] %}
+{% set as = [
+    'Data is available online with an open licence',
+
+    'Data is available in machine-processable, structured form (e.g. CSV format instead of an image scan of a table)',
+
+    'Data is available in a non-proprietary format (e.g. CSV, XML)',
+
+    'Data is described using open standards (e.g. RDF, SPARQL) and persistent identifiers (URIs or DOIs)',
+
+    'Data is linked to other data, to provide context (e.g. employee ID is linked to employee name or species name is linked to genus)'
+] %}
+
+{% set questions = {
+    'ie': ie,
+    'ac': ac,
+    'co': co,
+    'it': it,
+    'as': as
+} %}
+
+{% set model_ref = {
+    'ie': 'institutional',
+    'ac': 'accuracy',
+    'co': 'coherence',
+    'it': 'interpretability',
+    'as': 'accessibility'
+} %}
+
+{% set marks = ['Poor', 'Poor', 'Fair', 'Good', 'Very Good', 'Excellent']%}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+		<meta charset="UTF-8">
+		<title>Data Quality</title>
+		<style type="text/css">
+			{% include 'package/styles/_dqs_pdf_styles.css' %}
+		</style>
+    </head>
+    <body>
+		<h4 class="dq-header-title">NSW Government Data Quality Statement: {{ date.strftime('%d %B %Y') }}</h4>
+		{% block dq_header_table %}
+			<table class="dq-base-info">
+				<tr>
+					<td class="dq-base-title">Name of dataset or data source:</td>
+					<td>{{ package.title }}</td>
+				</tr>
+				<tr>
+					<td class="dq-base-title">Custodian of the dataset or data source:</td>
+					{% if package.asset_details and package.asset_details.custodian.position == 'External custodian' %}
+						<td>{{ h.get_org_full(package.owner_org).display_name }}</td>
+					{% else %}
+						<td>{{ package.asset_details and package.asset_details.custodian.position or 'N/A' }}</td>
+					{% endif %}
+				</tr>
+				<tr>
+					<td class="dq-base-title">Description:</td>
+					<td>{{ package.notes }}</td>
+				</tr>
+				<tr>
+					<td class="dq-base-title">Data quality rating:</td>
+					<td>
+						<ul class="dq-base-qualities">
+						{% for key, item in sections %}
+							{% with score = package.asset_details[model_ref[key]]|sum %}
+							<li class="{{'cool' if score > 3 else 'not_cool'}}">{{ item }} - {{ score }}</li>
+							{% endwith %}
+
+						{% endfor %}
+						</ul>
+					</td>
+				</tr>
+			</table>
+		{% endblock %}
+		{% block dq_info_table %}
+			{% for key, title in sections %}
+			<table class="dq-section-info">
+				<tr class="dq-section-title">
+					<th>{{ title }}</th>
+					<th>
+						{% with score = package.asset_details[model_ref[key]]|sum %}
+							{{ marks[score] }}
+							<div class="dq-section-info-star {{'cool' if score > 3 else 'not_cool'}}"></div>
+						{% endwith %}
+					</th>
+				</tr>
+				<tr class="positive-criteria">
+					<td colspan="3">
+						{%- for question in questions[key][:5] -%}
+							{% if package.asset_details[model_ref[key]][loop.index0] %}
+								<div class="section-q-item">{{ question|safe }}</div>
+							{% endif %}
+						{%- endfor -%}
+					</td>
+				</tr>
+				<tr class="negative-criteria">
+				<td colspan="3">
+					{%- for question in questions[key][:5] -%}
+					{% if not package.asset_details[model_ref[key]][loop.index0] %}
+						<div class="section-q-item">{{ question|safe }}</div>
+					{% endif %}
+					{%- endfor -%}
+				</td>
+				</tr>
+				{% if questions[key][5:] %}
+
+				<tr class="info-criteria">
+					<td colspan="3">
+					{%- for question in questions[key][5:] -%}
+						<div class="section-q-item">{{ question|safe }}</div>
+					{%- endfor -%}
+					</td>
+				</tr>
+				{% endif %}
+			</table>
+			{% endfor %}
+		{% endblock dq_info_table %}
+		<div class="disclaimer">
+			<h4>DATA DISCLAIMER</h4>
+			{% snippet 'snippets/legal.html', type=package.type %}
+		</div>
+		<p class="dq-subtitle understanding">Understanding the Data Quality Statement</p>
+		<div class="understanding-content">
+			<div>
+				The data quality statement aims to help you understand how a particular dataset could be used and whether it can be compared with other, similar datasets. It provides a description of the characteristics of the data to help you decide whether the data will be fit for your specific purpose.
+			</div>
+			<div>
+				<b>About the quality rating:</b>
+			</div>
+			<div>
+				The reporting questionnaire asks five questions for each of these data quality dimensions:
+			</div>
+			<ul>
+				<li>Institutional Environment</li>
+				<li>Accuracy</li>
+				<li>Coherence</li>
+				<li>Interpretability</li>
+				<li>Accessibility</li>
+			</ul>
+			<div>For each question: “yes” = 1 point; “no” = 0 points</div>
+			<div>The number of points determines the Quality Level for each dimension (high, medium, low).</div>
+			<div>Only dimensions with four or five points receive a star.</div>
+
+			<table class="quality-table">
+			<tr>
+				<th>Points</th>
+				<th>Quality Level</th>
+				<th>Star / No Star</th>
+			</tr>
+			<tr>
+				<td>0</td>
+				<td>{{ marks[0] }}</td>
+				<td>No Star</td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>{{ marks[1] }}</td>
+				<td>No Star</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>{{ marks[2] }}</td>
+				<td>No Star</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>{{ marks[3] }}</td>
+				<td>No Star</td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td>{{ marks[4] }}</td>
+				<td>Star</td>
+			</tr>
+			<tr>
+				<td>5</td>
+				<td>{{ marks[5] }}</td>
+				<td>Star</td>
+			</tr>
+			</table>
+		</div>
+		<p class="dq-subtitle understanding">Evaluating data quality</p>
+		<div>
+			Quality relates to the data’s “fitness for purpose”. Users can make different assessments about the dataquality of the same data, depending on their “purpose” or the way they plan to use the data.
+		</div>
+		<div>
+			The following questions may help you evaluate data quality for your requirements. This list is not exhaustive.Generate your own questions to assess data quality according to your specific needs and environment.
+		</div>
+		<ul>
+			<li>What was the primary purpose or aim for collecting the data?</li>
+			<li>How well does the coverage (and exclusions) match your needs?</li>
+			<li>How useful are these data at small levels of geography?</li>
+			<li>Does the population presented by the data match your needs?</li>
+			<li>To what extent does the method of data collection seem appropriate for the information being gathered?</li>
+			<li>Have standard classifications (eg industry or occupation classifications) been used in the collection of the data?If not, why? Does this affect the ability to compare or bring together data from different sources?</li>
+			<li>Have rates and percentages been calculated consistently throughout the data?</li>
+			<li>Is there a time difference between your reference period, and the reference period of the data?</li>
+			<li>What is the gap of time between the reference period (when the data were collected) and the release date of thedata?</li>
+			<li>Will there be subsequent surveys or data collection exercises for this topic?</li>
+			<li>Are there likely to be updates or revisions to the data after official release?</li>
+		</ul>
+    </body>
+</html>

@@ -1,0 +1,25 @@
+{% if with_heading is defined %}
+  <h1 id="legal-disclaimer-header">Legal Disclaimer</h1>
+{% endif %}
+{% if type == 'anzlic_dataset' %}
+  <div>
+    <p>You must check and comply with the licensing conditions for the information you wish to use. This may require you to contact the Office of Environment and Heritage (OEH), or other custodial agency, or the third party copyright owner for permission to use the material. You may also use any material in accordance with rights you may have under the <a href="https://www.comlaw.gov.au/Details/C2013C00145">Copyright Act 1968</a> (Cth), for example under the fair dealing provisions or statutory licences. Use of material in a way not permitted by this copyright notice may be an infringement of copyright. Infringing copyright may expose you to legal action by, and liability to, the copyright owner. Wherever a third party holds copyright in material, the copyright remains with that party. Their permission may be required to use the material and you should contact that party directly. As far as practicable, material for which the copyright is owned by a third party will be clearly labelled. Excluded material can only be used under the specific terms of use attached to that material. If you want to use this material in a manner that is not covered by those specific terms of use, you must request permission from the copyright owner of the material.</p>
+  </div>
+
+  <div>
+    <p>OEH endeavours to make sure that information provided is correct at the time of its publication. However, as necessary you should obtain independent advice before making any decision based on the information. The information is made available on the understanding that custodial agencies and the State of NSW accept no responsibility for any damage, cost, loss or expense incurred by you as a result of:</p>
+
+    <ul>
+      <li>any error, omission or misrepresentation in the information provided</li>
+      <li>without limiting the above, any delay, failure or error in recording, displaying or updating information, including but not limited to, data relating to credit holdings.</li>
+    </ul>
+  </div>
+
+  <div>
+    <p>Custodial agencies and the State of New South Wales disclaim all responsibility and all liability (including without limitation, liability in negligence) for all expenses, losses, damages and costs you might incur as a result of the information being inaccurate or incomplete in any way, and for any reason.</p>
+  </div>
+{% else %}
+  <div>
+    <p>NSW Government is committed to producing data that is accurate, complete and useful. Notwithstanding its commitment to data quality, NSW Government gives no warranty as to the fitness of this data for a particular purpose. While every effort is made to ensure data quality, the data is provided “as is”. The burden for fitness of the data relies completely with the User. NSW Government shall not be held liable for improper or incorrect use of the data.</p>
+  </div>
+{% endif %}

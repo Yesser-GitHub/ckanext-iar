@@ -1,0 +1,45 @@
+{% extends "page.html" %}
+{% import 'macros/form.html' as form %}
+
+{% block subtitle %}{{ _('Update DQS') }}{% endblock %}
+
+{% block breadcrumb_content %}
+    <li class="active">{% link_for pkg_dict.title|truncate(40), controller='package', action='read', id=pkg_dict.name %}</li>
+{% endblock %}
+
+{% block primary %}
+    <article class="module">
+		<div class="module-content">
+			<h2 class="dqs_pkg_title">{% link_for pkg_dict.title, controller='package', action='read', id=pkg_dict.name %}</h2>
+
+			<h1 class="ksa-dqs-title">{{ _('Data Quality Tool') }}</h1>
+			{% if pkg_dict.bit_dqs  %}
+			<div class="dropdown btn-group meta-export-select ksa-export-dqs-btn">
+				<a href="{{ h.url_for('ksa_export_dqs', dqs_uuid=pkg_dict.dqs_uuid) }}" class="btn btn-primary dropdown-toggle">
+					<i class="icon-upload export-icon"></i>
+					Export DQS
+				</a>
+			</div>
+			{% endif %}
+			{% block form %}
+				<form id="asset-details-form" class="dataset-form form-horizontal" method="post" data-module="basic-form anzlic-make-switch anzlic-form-with-navigation">
+					{% block errors %}{{ form.errors(c.error_summary) }}{% endblock %}
+
+					{% block form_content %}
+					{% snippet 'package/snippets/dqs_form_inner.html', questionnaire=questionnaire, pkg_dict=pkg_dict %}
+					{% endblock %}
+
+					{% block form_actions %}
+					<div class="form-actions">
+						{% block save_button %}
+						<button class="btn btn-primary" type="submit" name="save">{{ _('Save') }}</button>
+						{% endblock %}
+					</div>
+					{% endblock %}
+				</form>
+			{% endblock %}
+		</div>
+    </article>
+{% endblock %}
+
+{% block secondary %}{% endblock %}
