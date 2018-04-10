@@ -29,9 +29,9 @@ ckan.module('dqs-form', function ($, _) {
       this._recalculateStats(e ? $(e.target) : this._qb.find(':checkbox:first'));
     },
     _checkboxChange: function(e) {
-      $('.seed-export-dqs-btn a').attr('disabled', 'disabled')
+      $('.ksa-export-dqs-btn a').attr('disabled', 'disabled')
         .attr('title', 'Export disabled. Please save the changes in order to enable it or reload the page.');
-      $('.seed-export-dqs-btn a').on('click', function(event) {
+      $('.ksa-export-dqs-btn a').on('click', function(event) {
         event.preventDefault();
         return false;
       });
