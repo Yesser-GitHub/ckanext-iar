@@ -1,6 +1,6 @@
 {% set dataset_list = h.relation_display(data[field.field_name]) %}
 {% if dataset_list %}
 	{% for dataset in dataset_list %}
-		<a href="/dataset/{{ dataset.name }}">{{dataset.title}}</a><br>
+		<a href="{{ h.url_for(controller='package', action='read', id=dataset.name) }}">{{dataset.title}}</a><br>
 	{% endfor %}
 {% endif %}
