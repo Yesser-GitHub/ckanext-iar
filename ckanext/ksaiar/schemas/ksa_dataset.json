@@ -81,6 +81,13 @@
       "display_email_name_field": "maintainer"
     },
     {
+      "field_name": "relations",
+      "label": "Relations",
+      "preset": "ksa_dataset_autocomplete",
+      "form_snippet": "relations.html",
+      "display_snippet": "relations.html"
+    },
+    {
       "field_name": "dqs_uuid",
       "display_snippet": null,
       "form_snippet": "ksa_hidden.html",
