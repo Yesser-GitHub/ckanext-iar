@@ -7,6 +7,7 @@ import ckan.logic as logic
 
 import ckanext.ksaiar.logic.auth as ksa_auth
 import ckanext.ksaiar.helpers as ksa_helpers
+from ckanext.ksaiar.validators import get_validators
 
 
 class KsaIarPlugin(plugins.SingletonPlugin):
@@ -15,6 +16,7 @@ class KsaIarPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IAuthFunctions, inherit=True)
     plugins.implements(plugins.ITemplateHelpers)
     plugins.implements(plugins.IPackageController, inherit=True)
+    plugins.implements(plugins.IValidators)
 
     # IConfigurer
     def update_config(self, config_):
@@ -31,6 +33,7 @@ class KsaIarPlugin(plugins.SingletonPlugin):
 
     def before_map(self, routeMap):
         controllerPackage = 'ckanext.ksaiar.controller:KsaPackageController'
+        controller_api = 'ckanext.ksaiar.api_controller:APIController'
 
         routeMap.connect(
             "allow_dataset_dqs",
@@ -51,6 +54,12 @@ class KsaIarPlugin(plugins.SingletonPlugin):
             action='export_dqs'
         )
 
+        # API
+        routeMap.connect(
+            '/api/2/util/ksa_dataset/autocomplete',
+            controller=controller_api,
+            action='ksa_dataset_autocomplete')
+
         return routeMap
 
     #IPackageController
@@ -66,3 +75,7 @@ class KsaIarPlugin(plugins.SingletonPlugin):
     # ITemplateHelpers
     def get_helpers(self):
         return ksa_helpers.get_ksa_helpers()
+
+    # IValidators
+    def get_validators(self):
+        return get_validators()
