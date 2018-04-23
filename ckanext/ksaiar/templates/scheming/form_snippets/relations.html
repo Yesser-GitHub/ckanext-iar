@@ -1,16 +1,19 @@
 {% import 'macros/form.html' as form %}
 {% set field_attrs = h.relation_attrs_update(data, field.form_attrs) %}
+{% set relation_name = h.relation_display(data[field.field_name]) %}
 
 {% if not field_attrs %}
     {% set field_attrs = field.form_attrs %}
 {% endif %}
-
+{% if relation_name %}
+    {% set relation_name = h.get_translated(relation_name, 'title') %}
+{% endif %}
 {% call form.input(
     field.field_name,
     id='field-' + field.field_name,
     label=h.scheming_language_text(field.label),
     placeholder=h.scheming_language_text(field.form_placeholder),
-    value=data[field.field_name],
+    value=relation_name,
     error=errors[field.field_name],
     classes=field.classes if 'classes' in field else ['control-medium'],
     attrs=field_attrs if 'form_attrs' in field else {"class": "form-control"},
