@@ -1,0 +1,179 @@
+.account-masthead {
+    background: @grey;
+    margin: 0;
+    padding: 0;
+    .top-bar {
+        height: 7px; 
+        .l {
+            float: left;
+            height: 7px;
+            width: 33%;
+            background-color: @mainOrange;
+        }
+        .r { 
+            float: right;
+            height: 7px;
+            width: 67%;
+            background-color: @mainGreen;
+        }
+    }
+    .account {
+        ul {
+            li {
+                border-left: none;
+                a {
+                    font-size: 20px;
+                    color: @navText;
+                    &:hover, &:focus {
+                        background-color: @mainGreen;
+                        color: @yellowText;
+                    }
+                }
+            }
+        }
+        .notifications {
+            a {
+                span.badge {
+                    background-color: transparent;
+                    color: @navText;
+                }
+            }
+        }
+    }
+}
+header.navbar {
+    margin-bottom: 0;
+    .logo {
+        margin: 8px 0;
+        &:hover {
+            text-decoration: none;
+        }
+        .label {
+            font-size: 28px;
+            line-height: 28px;
+            margin-left: 10px;
+        }
+    }
+    .social-links {
+        .social_icons {
+            .soc-icon {
+                display: inline-block;
+                background: url(../images/social_icons.png) 0 0 no-repeat;
+                width: 36px;
+                height: 36px;
+                margin-right: 8px;
+                margin-top: 8px;
+                transition: all 0.3s ease-out;
+                text-indent: -9999px;
+                overflow: hidden;
+                &.ico1 {
+                    background-position-x: -88px;
+                }
+                &.ico2 {
+                    background-position-x: -133px;
+                }
+                &.ico3 {
+                    background-position-x: -177px;
+                }
+                &.ico4 {
+                    background-position-x: -221px;
+                }
+                &:hover {
+                    background-position-y: -38px;
+                }
+            }
+        }
+    }
+    .language-switcher {
+        .language-switcher-locale-url {
+            list-style: none;
+            margin: 10px 0 0;
+            li {
+                display: inline-block;
+                padding: 0 5px;
+                a {
+                    font-size: 24px;
+                    line-height: 26px;
+                    color: @mainGreen;
+                    &:hover, &:focus {
+                        color: @darkGreen;
+                        text-decoration: underline;
+                    }
+                }
+                &.en {
+                    border-left: 3px solid @darkGrey;
+                }
+            }
+        }
+    }
+    .header-navbar{
+        background-color: @grey;
+        border-bottom: 5px solid @mainGreen;
+        .nav {
+            li {
+                a {
+                    font-size: 24px;
+                    color: @navText;
+                    border-radius: 0;
+                    padding: 15px;
+                    margin: 0;
+                    text-shadow: none;
+                    &:hover, &focus {
+                        background-color: @mainGreen;
+                        color: @yellowText;
+                    }
+                }
+                &.active {
+                    a {
+                        box-shadow: none;
+                        background-color: @mainGreen;
+                        color: @yellowText;
+                    }
+                }
+            }
+        }
+        .btn-navbar {
+            margin: 8px 5px;
+            border: none;
+            background: transparent;
+            box-shadow: none;
+            .icon-bar {
+                width: 22px;
+                height: 2px;
+                background: #ccc;
+                border-radius: 1px;
+                text-shadow: none;
+                box-shadow: none;
+            }
+        }
+    }
+}
+.header-search {
+    clear: both;
+    margin-top: 6px;
+    .search-form {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border: none;
+        .search-input {
+            margin-bottom: 15px;
+            input {
+                font-size: 20px;
+                width: 250px;
+                height: 34px;
+                padding-right: 30px;
+            }
+            button {
+                i {
+                    font-size: 20px;
+                    color: #555;
+                }
+                &:hover {
+                    i {
+                        color: #555;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,54 @@
+{% extends "package/base.html" %}
+
+{%- set pkg = c.pkg_dict -%}
+{%- set description = h.get_translated(pkg, 'notes') -%}
+
+{% block subtitle %}{{ h.dataset_display_name(pkg)[h.lang()] }} - {{ super() }}{% endblock %}
+
+{% block head_extras -%}
+  {{ super() }}
+  <meta property="og:title" content="{{ h.get_translated(pkg, 'title') }} - {{ g.site_title }}">
+  <meta property="og:description" content="{{ description|forceescape|trim }}">
+{% endblock -%}
+
+{% block primary_content %}
+  <div>
+    {% block page_header %}
+      <header>
+        {% if self.content_action() | trim %}
+          <div class="content_action pull-right">
+            {% block content_action %}
+              {% if h.check_access('package_update', {'id':pkg.id }) %}
+                {% link_for _('Manage'), controller='package', action='edit', id=pkg.name, class_='btn', icon='wrench' %}
+              {% endif %}
+            {% endblock %}
+          </div>
+        {% endif %}
+      </header>
+    {% endblock %}
+    <div>
+      {% if self.page_primary_action() | trim %}
+        <div class="page_primary_action">
+          {% block page_primary_action %}{% endblock %}
+        </div>
+      {% endif %}
+      {% block primary_content_inner %}
+        {% block package_revision_info %}
+          {% if c.revision_date %}
+            <div class="module info alert alert-info">
+              <p class="module-content">
+                {% set timestamp = h.render_datetime(c.revision_date, with_hours=True) %}
+                {% set url = h.url_for(controller='package', action='read', id=pkg.name) %}
+
+                {% trans timestamp=timestamp, url=url %}This is an old revision of this dataset, as edited at {{ timestamp }}. It may differ significantly from the <a href="{{ url }}">current revision</a>.{% endtrans %}
+              </p>
+            </div>
+          {% endif %}
+        {% endblock %}
+      {% endblock %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block secondary %}
+{% endblock %}

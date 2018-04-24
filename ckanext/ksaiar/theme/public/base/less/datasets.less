@@ -1,0 +1,256 @@
+aside.secondary {
+    section.module {
+        background-color: #fff;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        margin-bottom: 20px;
+        .module-heading {
+            background-color: @mainGreen;
+            font-size: 20px;
+            color: #fff;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+            border-radius: 0;
+        }
+        nav {
+            ul.nav-facet {
+                li.nav-item {
+                    border-bottom: 1px dotted #ccc;
+                    a {
+                        font-size: 20px;
+                        color: #333;
+                        position: relative;
+                        &:hover, &:focus {
+                            color: #1a1a1a;
+                            background: rgba(0, 0, 0, 0.03);
+                            text-decoration: none;
+                            &:after {
+                                content: "\f055";
+                                color: #5cb85c;
+                                font-family: "FontAwesome";
+                                position: absolute;
+                                right: 6px;
+                                background: transparent;
+                            }
+                        }
+                    }
+                    &:last-child {
+                        border-bottom: none;
+                    }
+                    &.active {
+                        a {
+                            background-color: #ccc;
+                            &:before {
+                                content: '';
+                                position: absolute;
+                                right: -13px;
+                                top: 0;
+                                background: transparent;
+                                width: 0; 
+                                height: 0; 
+                                border-top: 17px solid transparent;
+                                border-bottom: 17px solid transparent;
+                                border-left: 13px solid #ccc;
+                                z-index: 1;
+                            }
+                            &:after {
+                                content: "\f00d";
+                                color: @navText;
+                                font-family: "FontAwesome";
+                                position: absolute;
+                                top: 14px;
+                                right: 6px;
+                                background: transparent;
+                            }
+                            &:hover, &:focus {
+                                &:after {
+                                    color: red;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .module-footer {
+            padding: 0;
+            .read-more {
+                display: block;
+                position: relative; 
+                line-height: 1.35em;
+                color: @mainGreen;
+                padding: 5px 39px 5px 5px;
+                &:after {
+                    content: "\f150";
+                    font-family: "FontAwesome";
+                    position: absolute;
+                    top: 6px;
+                    right: 15px;
+                }
+                &:hover, &focus {
+                    color: @darkGreen;
+                }
+            }
+            .read-less {
+                display: block;
+                position: relative; 
+                line-height: 1.35em;
+                color: @mainGreen;
+                padding: 5px 39px 5px 5px;
+                &:after {
+                    content: "\f151";
+                    font-family: "FontAwesome";
+                    position: absolute;
+                    top: 6px;
+                    right: 15px;
+                }
+                &:hover, &focus {
+                    color: @darkGreen;
+                }
+            }
+        }
+    }
+}
+
+.primary {
+    div.module-content {
+        background-color: #fff;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    }
+}
+
+.search_title {
+    h4 {
+        font-size: 20px;
+        line-height: 1;
+        margin: 0 0 5px;
+    }
+}
+.mini-search-form {
+    overflow: hidden;
+    padding: 0;
+    margin: 10px 0;
+    border-bottom: none;
+    .search-input {
+        margin-bottom: 0;
+        margin-right: 10px;
+        input {
+            height: 40px;
+            width: 217px;
+        }
+    }
+    .form-select {
+        margin-bottom: 0;
+        margin-right: 10px;
+        select {
+            margin-bottom: 0;
+            height: 40px;
+            width: 176px;
+        }
+    }
+    button {
+        margin-right: 10px;
+        height: 40px;
+        width: 62px;
+        background-color: @mainGreen;
+        color: #fff;
+    }
+}
+
+ul.dataset-list {
+    li.dataset-item {
+        font-size: 22px;
+        line-height: 1.35em;
+        border-left: 5px solid #FCB016;
+        border-bottom: none;
+        padding: 5px 10px;
+        margin-bottom: 15px;
+        h2.dataset-heading {
+            a {
+                font-size: 24px;
+                color: @mainGreen;
+                &:hover {
+                    color: @darkGreen;
+                }
+            }
+        }
+        .d_desc {
+            margin-bottom: 5px;
+        }
+        .d_group, .d_org {
+            font-size: 20px;
+            margin-bottom: 0;
+        }
+    }
+}
+a.btn {
+    background: @mainGreen;
+    color: #fff;
+    border: none;
+    text-shadow: none;
+    box-shadow: none;
+    &:hover, &:focus, &:active {
+        color: #fff;
+        background: @darkGreen;
+    }
+}
+.notes {
+    padding-top: 10px;
+    padding-left: 30px;
+    position: relative;
+    color: #555;
+    .icon-info-sign {
+        font-size: 30px;
+        color: #999;
+        position: absolute;
+        left: 0;
+        top: 7px;
+    }
+    a {
+        color: @mainGreen;
+        &:hover {
+            color: @darkGreen;
+        }
+    }
+}
+.additional-info {
+    h3 {
+        font-size: 36px;
+    }
+    table {
+        thead {
+            tr {
+                th {
+                    background-color: #cdcdcd;
+                }
+            }
+        }
+    }
+}
+.resources {
+    h3 {
+        font-size: 36px;
+    }
+    .resource-item {
+        .heading {
+            font-size: 20px;
+        }
+        .description {
+            font-size: 20px;
+        }
+        &:hover {
+            background-color: transparent;
+        }
+    }
+}
+.d_publisher {
+    padding-top: 5px;
+    padding-bottom: 15px;
+    p {
+        margin-bottom: 0;
+    }
+}
+
+/* Resource */
+.module-resource {
+    background-color: transparent;
+    border: none;
+}

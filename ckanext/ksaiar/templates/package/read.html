@@ -1,0 +1,46 @@
+{% extends "package/read_base.html" %}
+
+{% block primary_content_inner %}
+  {{ super() }}
+  {% block package_description %}
+    {% if pkg.private %}
+      <span class="dataset-private label label-inverse pull-right">
+        <i class="fa fa-lock"></i>
+        {{ _('Private') }}
+      </span>
+    {% endif %}
+    <h1>
+      {% block page_heading %}
+        {{ h.get_translated(pkg, 'title') }}
+        {% if pkg.state.startswith('draft') %}
+          [{{ _('Draft') }}]
+        {% endif %}
+        {% if pkg.state == 'deleted' %}
+          [{{ _('Deleted') }}]
+        {% endif %}
+      {% endblock %}
+    </h1>
+    {% block package_notes %}
+      {% if pkg.notes %}
+        <div class="notes embedded-content">
+          <i class="fa fa-info-circle"></i> {{ h.render_markdown(h.get_translated(package, 'notes')) }}
+        </div>
+      {% endif %}
+    {% endblock %}
+  {% endblock %}
+
+  {% block package_additional_info %}
+    {% snippet "package/snippets/additional_info.html", pkg_dict=pkg %}
+    {% if pkg.organization %}
+      <div class="d_publisher">
+        <p>{{_('Publisher')}}: </p> 
+        <p>{{ h.link_to(h.get_translated(pkg.organization, 'title'), h.url_for(controller='organization', action='read', id=pkg.organization.name)) }}</p>
+      </div>
+    {% endif %}
+  {% endblock %}
+
+  {% block package_resources %}
+    {% snippet "package/snippets/resources_list.html", pkg=pkg, resources=pkg.resources %}
+  {% endblock %}
+
+{% endblock %}

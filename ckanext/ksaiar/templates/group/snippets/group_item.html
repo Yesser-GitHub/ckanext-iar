@@ -1,0 +1,37 @@
+{% set type = group.type or 'group' %}
+{% set url = h.url_for(type ~ '_read', action='read', id=group.name) %}
+{% block item %}
+<li class="group-item">
+  {% block item_inner %}
+    {% block image %}
+      <div class="group-image">
+        <a href="{{ url }}" title="{{ _('View {name}').format(name=group.display_name) }}">
+          <img src="{{ group.image_display_url or h.url_for_static('/base/images/placeholder-group.png') }}" alt="{{ group.name }}" class="media-image">
+        </a>
+      </div>
+    {% endblock %}
+    {% block title %}
+      <a href="{{ url }}" title="{{ _('View {name}').format(name=group.display_name) }}">
+        <h3 class="media-heading">{{ group.display_name }}</h3>
+      </a>
+    {% endblock %}
+    {% block description %}
+      {% if group.description %}
+        <p>{{ h.markdown_extract(group.description, extract_length=80) }}</p>
+      {% endif %}
+    {% endblock %}
+    {% block datasets %}
+      <a href="{{ url }}" title="{{ _('View {name}').format(name=group.display_name) }}">
+      {% if group.package_count %}
+        <strong class="count">{{ ungettext('{num} Dataset', '{num} Datasets', group.package_count).format(num=group.package_count) }}</strong>
+      {% elif group.package_count == 0 %}
+        <span class="count">{{ _('0 Datasets') }}</span>
+      {% endif %}
+      </a>
+    {% endblock %}
+    {% if group.user_member %}
+      <input name="group_remove.{{ group.id }}" value="{{ _('Remove') }}" type="submit" class="btn btn-danger btn-small media-edit" title="{{ _('Remove dataset from this group') }}"/>
+    {% endif %}
+  {% endblock %}
+</li>
+{% endblock %}

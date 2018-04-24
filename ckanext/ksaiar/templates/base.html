@@ -1,5 +1,13 @@
 {% ckan_extends %}
 
+{%- block htmltag -%}
+{% set lang = h.lang() %}
+<!--[if IE 7]> <html lang="{{ lang }}" dir="{% if lang == 'ar' %}rtl{% else %}ltr{% endif %}" class="ie ie7"> <![endif]-->
+<!--[if IE 8]> <html lang="{{ lang }}" dir="{% if lang == 'ar' %}rtl{% else %}ltr{% endif %}" class="ie ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="{{ lang }}" dir="{% if lang == 'ar' %}rtl{% else %}ltr{% endif %}" class="ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="{{ lang }}" dir="{% if lang == 'ar' %}rtl{% else %}ltr{% endif %}"> <!--<![endif]-->
+{%- endblock -%}
+
 {% block styles %}
 	{{ super() }}
     {% resource 'ksaiar/styles' %}
