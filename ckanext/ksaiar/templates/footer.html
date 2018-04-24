@@ -1,0 +1,18 @@
+<footer class="site-footer">
+  <div class="container">
+    {% block footer_content %}
+      <p class="footer-logo">
+        <img alt="" src="{{ h.url_for_static('/images/logo_footer.png') }}"><a href="http://saudi.gov.sa">{{_('SAUDI')}}</a> | {{_('National e-Government Portal')}}
+      </p>
+      <p>
+        {{_('Data is not subject to any copyright, patent, trademark or trade secret regulation. Reasonable privacy, security and privilege restrictions may be applied.')}}
+      </p>
+    {% endblock %}
+  </div>
+
+  {% block footer_debug %}
+    {% if g.debug %}
+      {% include 'snippets/debug.html' %}
+    {% endif %}
+  {% endblock %}
+</footer>

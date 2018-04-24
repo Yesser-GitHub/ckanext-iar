@@ -1,0 +1,18 @@
+{% ckan_extends %}
+
+{% block breadcrumb_content %}
+  <li class="active"><span>{{_('About')}}</span></li>
+{% endblock %}
+
+{% block primary %}
+  <article class="primary span9">
+    {% block about %}
+      {% if g.site_about %}
+        {{ h.render_markdown(g.site_about) }}
+      {% else %}
+        <h1 class="page-heading">{{ _('About') }}</h1>
+        {% snippet 'home/snippets/about_text.html' %}
+      {% endif %}
+    {% endblock %}
+  </article>
+{% endblock %}

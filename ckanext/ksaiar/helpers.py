@@ -5,6 +5,8 @@ from ckan.common import c, _
 def get_ksa_helpers():
     return dict(
         ksa_bit_check=ksa_bit_check,
+		ksa_group_list = ksa_group_list,
+        get_ksa_group_img = get_ksa_group_img,
         relation_attrs_update=relation_attrs_update,
         relations_display=relations_display,
 		relation_display=relation_display
@@ -12,6 +14,15 @@ def get_ksa_helpers():
 
 def ksa_bit_check(mask, pos):
     return bool(int(mask or 0) & 1 << pos)
+
+def ksa_group_list():
+    response = logic.get_action('group_list')({}, {})
+    return response
+
+def get_ksa_group_img(group):
+    response = logic.get_action('group_show')({}, {'id': group})
+    img = response.get('image_url', '')
+    return img
 
 def relation_attrs_update(data, attrs):
 	api_url = ''

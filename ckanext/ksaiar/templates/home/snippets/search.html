@@ -1,0 +1,14 @@
+{% set tags = h.get_facet_items_dict('tags', limit=3) %}
+{% set placeholder = _('E.g. environment') %}
+
+<form class="search-form" method="get" action="{% url_for controller='package', action='search' %}">
+  <h3 class="heading">{{ _('Welcome to Saudi Government Open Data portal')}}</h3>
+  <p>{{_('We proactively disclose government information and make it available online for everyone to access, reuse and redistribute.')}}</p>
+  <div class="search-input control-group search-giant">
+    <input type="text" class="search" name="q" value="" autocomplete="off" placeholder="search" />
+    <button type="submit">
+      <i class="icon-search"></i>
+      <span>{{ _('Search') }}</span>
+    </button>
+  </div>
+</form>

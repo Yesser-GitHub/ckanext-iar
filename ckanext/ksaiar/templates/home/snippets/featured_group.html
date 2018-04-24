@@ -1,0 +1,18 @@
+{% set groups = h.ksa_group_list() %}
+
+{% for group in groups %}
+
+  {% set group_title = h.group_name_to_title(group) %}
+  {% set group_img = h.get_ksa_group_img(group) %}
+
+  <div class="group-box">
+    <div class="group-box-image">
+      <a href="{{ h.url_for(controller='group', action='read', id=group) }}">
+        <img src="{{ group_img or h.url_for_static('/images/folder.jpg') }}" alt="{{ group_title }}">
+      </a>
+    </div>
+    <p class="group-box-title">
+      <a href="{{ h.url_for(controller='group', action='read', id=group) }}">{{ _(group_title) }}</a>
+    </p>
+  </div>
+{% endfor %}

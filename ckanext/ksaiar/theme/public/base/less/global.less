@@ -1,0 +1,135 @@
+body {
+    font-family: 'Midan';
+    font-size: 20px;
+    line-height: 1.35em;
+    color: @mainText;
+    background: url('../images/bg_body_top.png') top no-repeat, url('../images/bg_body_bottom.png') bottom no-repeat;
+    background-size: 100% auto;
+    padding: 0;
+}
+.container, .navbar .container{
+    width: 1170px;
+    padding-left: 15px;
+    padding-right: 15px;
+    box-sizing: border-box;
+}
+[role=main], .main, .page-header, .media-grid{
+    background: transparent;
+}
+.row {
+    margin-left: -15px;
+    margin-right: -15px;
+}
+a {
+    color: @mainGreen;
+    &:hover {
+        color: @darkGreen;
+    }
+}
+input, button, select, textarea {
+    font-family: 'Midan';
+    font-size: 20px;
+}
+.btn-primary {
+    background: @mainGreen;
+    text-shadow: none;
+    box-shadow: none;
+    &:hover, &:focus, &:active  {
+        background: @darkGreen;
+    }
+}
+.btn-group{
+    &>.btn {
+        font-size: 20px;
+        border: none;
+        &:hover, &:focus, &:active {
+            background: @darkGreen;
+            box-shadow: none;
+        }
+    }
+    &>.dropdown-menu {
+        font-size: 18px;
+        li {
+            a {
+                &:hover, &:focus, &:active {
+                    background: @mainGreen;
+                    box-shadow: none;
+                }
+            }
+        }
+    }
+    &.open {
+        .btn-primary.dropdown-toggle {
+            background: @darkGreen;
+        }
+    }
+}
+.toolbar {
+    .breadcrumb {
+        li {
+            a, span {
+                color: @mainGreen;
+            }
+            &.active {
+                a, span{
+                    color: @mainText
+                }
+            }
+            &:after {
+                color: #ccc;
+            }
+        }
+    }
+}
+aside.span3 {
+    width: 25%;
+    padding: 0 15px;
+    box-sizing: border-box;
+    &+.primary.span9 {
+        width: 75%;
+    }
+}
+.primary {
+    &.span9 {
+        width: 100%;
+        padding: 0 15px;
+        box-sizing: border-box;
+    }
+    h1 {
+        font-size: 30px;
+        font-family: 'MidanBlack';
+        line-height: 1.1;
+        margin: 0;
+    }
+}
+article.module {
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    padding: 20px 25px;
+}
+.activity .item p, .btn, label, .nav-item>a, .nav-aside li a {
+    font-size: 20px;
+}
+.stages {
+    margin: -20px -25px 20px -10px;
+}
+
+i.faset-count {
+    font-style: normal;
+    unicode-bidi: plaintext;
+    direction: ltr;
+}
+
+/* Footer */
+.site-footer {
+    background: @mainGreen;
+    font-size: 22px;
+    color: #fff;
+    padding: 0 20px 20px;
+    .footer-logo {
+        margin-bottom: 30px;
+    }
+    a {
+        color: #fff;
+    }
+}

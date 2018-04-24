@@ -1,0 +1,55 @@
+{% extends "page.html" %}
+
+{%- set title = h.get_translated(c.group_dict, 'title') -%}
+
+{% block subtitle %}{{ title }} - {{ _('Organizations') }}{% endblock %}
+
+{% block breadcrumb_content %}
+  <li>{% link_for _('Organizations'), controller='organization', action='index' %}</li>
+  <li class="active">{% link_for title|truncate(35), controller='organization', action='read', id=c.group_dict.name %}</li>
+{% endblock %}
+
+{% block primary %}
+<div class="primary span9">
+  {% block primary_content %}
+    <article class="module">
+      {% block page_header %}
+        <header class="module-content page-header">
+          {% if self.content_action() | trim %}
+            <div class="content_action">
+                {% block content_action %}
+                  {% if h.check_access('organization_update', {'id': c.group_dict.id}) %}
+                    {% link_for _('Manage'), controller='organization', action='edit', id=c.group_dict.name, class_='btn', icon='wrench' %}
+                  {% endif %}
+                {% endblock %}
+            </div>
+          {% endif %}
+          <ul class="nav nav-tabs">
+              {% block content_primary_nav %}
+                {{ h.build_nav_icon('organization_read', _('Datasets'), id=c.group_dict.name) }}
+                {{ h.build_nav_icon('organization_activity', _('Activity Stream'), id=c.group_dict.name, offset=0) }}
+                {{ h.build_nav_icon('organization_about', _('About'), id=c.group_dict.name) }}
+              {% endblock %}
+          </ul>
+        </header>
+      {% endblock %}
+      <div>
+        {% if self.page_primary_action() | trim %}
+          <div class="page_primary_action">
+            {% block page_primary_action %}{% endblock %}
+          </div>
+        {% endif %}
+        {% block primary_content_inner %}
+        {% endblock %}
+      </div>
+    </article>
+  {% endblock %}
+</div>
+{% endblock %}
+
+{% block secondary %}{% endblock %}
+
+{% block links %}
+  {{ super() }}
+  {% include "organization/snippets/feeds.html" %}
+{% endblock %}
