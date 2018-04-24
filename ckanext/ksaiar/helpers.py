@@ -8,8 +8,7 @@ def get_ksa_helpers():
 		ksa_group_list = ksa_group_list,
         get_ksa_group_img = get_ksa_group_img,
         relation_attrs_update=relation_attrs_update,
-        relations_display=relations_display,
-		relation_display=relation_display
+        relations_display=relations_display
     )
 
 def ksa_bit_check(mask, pos):
@@ -53,20 +52,4 @@ def relations_display(value):
 			if pkg:
 				dataset_list.append(pkg)
 		return dataset_list
-	return
-
-def relation_display(data):
-	context = {
-		'model': model, 
-	 	'session': model.Session,
-        'user': c.user, 
-		'auth_user_obj': c.userobj
-	}
-	if data:
-		pkg = ''
-		try:
-			pkg = logic.get_action('package_show')(context, {'id': data})
-		except logic.NotFound:
-			return
-		return pkg
 	return
