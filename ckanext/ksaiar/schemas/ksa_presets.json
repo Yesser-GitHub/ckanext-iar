@@ -1,0 +1,21 @@
+{
+    "scheming_presets_version": 1,
+    "about": "",
+    "about_url": "http://github.com/ckan/ckanext-scheming#preset",
+    "presets": [
+      {
+        "preset_name": "ksa_dataset_autocomplete",
+        "values": {
+          "validators": "ignore_missing scheming_required validate_relations",
+          "classes": [],
+          "form_attrs": {
+            "data-module": "autocomplete",
+            "data-module-tags": "",
+            "data-module-label": "title",
+            "data-module-key": "name",
+            "data-module-source": "/api/2/util/ksa_dataset/autocomplete?incomplete=?"
+          }
+        }
+      }
+    ]
+}

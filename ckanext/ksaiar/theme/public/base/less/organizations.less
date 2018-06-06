@@ -1,0 +1,63 @@
+.media-grid {
+    border: none;
+    .media-item {
+        .media-heading {
+            font-size: 22px;
+            color: @mainGreen;
+        }
+    }
+}
+.total-publishers {
+    font-size: 25px;
+    margin: 15px 0;
+}
+.media-view {
+    &:hover {
+        border-color: @darkGreen;
+    }
+}
+
+/* Groups */
+.groups-list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    justify-content: space-between;
+    margin: 0;
+}
+.group-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 200px;
+    text-align: center;
+    margin: 0 20px 45px;
+    .group-image {
+        width: 200px;
+        height: 200px;
+        border: 1px solid #F3F3F3;
+    }
+    .media-heading {
+        font-size: 25px;
+        line-height: 1.1;
+        color: @mainGreen;
+        margin: 20px 0 25px;
+        &:hover {
+            color: @darkGreen;
+            text-decoration: underline;
+        }
+    }
+    strong.count {
+        display: inline-block;
+        height: 40px;
+        line-height: 40px;
+        padding: 0 12px;
+        background-color: @mainGreen;
+        color: #fff;
+    }
+    a {
+        &:hover, &:focus, &:active {
+            text-decoration: none;
+        }
+    }
+}

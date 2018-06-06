@@ -1,0 +1,6 @@
+{% set dataset_list = h.relations_display(data[field.field_name]) %}
+{% if dataset_list %}
+	{% for dataset in dataset_list %}
+		<a href="{{ h.url_for(controller='package', action='read', id=dataset.name) }}">{{ h.get_translated(dataset, 'title') }}</a><br>
+	{% endfor %}
+{% endif %}

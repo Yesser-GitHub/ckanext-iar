@@ -1,0 +1,77 @@
+.homepage {
+    .panel-top {
+        background: linear-gradient(rgba(11, 135, 67, 0.45), rgba(11, 135, 67, 0.45)), url('../images/heading-bg.jpg') 50% 50% no-repeat;
+        background-size: cover;
+        padding: 30px 0;
+        .search-form {
+            font-size: 22px;
+            line-height: 1.33em;
+            color: #fff;
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+            h3 {
+                font-family: 'MidanBlack';
+                font-size: 22px;
+                margin-bottom: 27px;
+            }
+            p {
+                margin-bottom: 27px;
+            }
+            .search-input.search-giant {
+                input {
+                    font-size: 20px;
+                    padding: 7px 15px;
+                    font-family: 'Midan';
+                }
+                button {
+                    margin-top: -15px;
+                    i {
+                        color: #555;
+                    }
+                    &:hover {
+                        i {
+                            color: #555;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .home-main {
+        padding: 0;
+    }
+    .main-title {
+        font-size: 26px;
+        line-height: 1.1;
+        color: @mainText;
+        margin-top: 20px;
+    }
+    .main-groups-row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: -15px;
+        margin-right: -15px;
+        .group-box {
+            width: 190px;
+            min-height: 190px;
+            box-sizing: border-box;
+            .group-box-image {
+                width: 100px;
+                height: 100px;
+                margin: 0 auto 5px;
+                line-height: 100px;
+                background-color: #fff;
+                box-shadow: 0 0 10px lightgrey;
+            }
+            .group-box-title {
+                a {
+                    display: block;
+                    font-size: 23px;
+                    line-height: 1.1;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}

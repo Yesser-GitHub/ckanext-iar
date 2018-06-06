@@ -1,0 +1,51 @@
+{% extends "page.html" %}
+
+{% block subtitle %}{{ _('Groups') }}{% endblock %}
+
+{% block breadcrumb_content %}
+  <li class="active"><span>{{_('Groups')}}</span></li>
+{% endblock %}
+
+{% block primary %}
+  <div class="primary span9">
+    {% block primary_content %}
+      <article class="module">
+        {% block page_header %}{% endblock %}
+        <div>
+          {% if self.page_primary_action() | trim %}
+            <div class="page_primary_action">
+                {% block page_primary_action %}
+                  {% if h.check_access('group_create') %}
+                    {% link_for _('Add Group'), controller='group', action='new', class_='btn btn-primary' %}
+                  {% endif %}
+                {% endblock %}
+            </div>
+          {% endif %}
+          {% block primary_content_inner %}
+            <h1 class="hide-heading">{{ _('Groups') }}</h1>
+            {% block groups_search_form %}{% endblock %}
+            {% block groups_list %}
+              {% if c.page.items or request.params %}
+                {% if c.page.items %}
+                  {% snippet "group/snippets/group_list.html", groups=c.page.items %}
+                {% endif %}
+              {% else %}
+                <p class="empty">
+                  {{ _('There are currently no groups for this site') }}.
+                  {% if h.check_access('group_create') %}
+                    {% link_for _('How about creating one?'), controller='group', action='new' %}</a>.
+                  {% endif %}
+                </p>
+              {% endif %}
+            {% endblock %}
+            {% block page_pagination %}
+              {{ c.page.pager(q=c.q or '', sort=c.sort_by_selected or '') }}
+            {% endblock %}
+          {% endblock %}
+        </div>
+      </article>
+    {% endblock %}
+  </div>
+{% endblock %}
+
+{% block secondary %}{% endblock %}
